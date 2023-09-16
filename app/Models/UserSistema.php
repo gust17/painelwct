@@ -21,4 +21,9 @@ class UserSistema extends Model
     {
         return $this->hasMany(Extrato::class,'id_usuario','id');
     }
+
+    public function faturas()
+    {
+        return $this->hasMany(Fatura::class,'id_usuario','id');
+    }
 }

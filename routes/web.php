@@ -17,9 +17,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('saque', function () {
 
-    $usuarios = \App\Models\UserSistema::whereHas('extratos')->limit(30)->get();
+    //$usuarios = \App\Models\UserSistema::whereHas('extratos')->get();
 
-   return view('corrige',compact('usuarios'));
+
+    $usuarios = \App\Models\UserSistema::whereHas('extratos')->get();
+    return view('corrige', compact('usuarios'));
+
+});
+
+Route::get('userfatura',function (){
+    $users = \App\Models\UserSistema::whereHas('faturas', function ($query) {
+        $query->where('id_plano', 1)
+            ->where('status', 2);
+    }, '>', 1)->get()->toArray();
+    dd($users);
 });
